@@ -14,7 +14,10 @@
 
     </head>
     <body>
-        <%= render partial: 'flash_alert_ui_set', layout: false, locale: { notice: notice, alert: alert } %>
-        <%= yield %>
+        <%= render partial: '/layouts/navbar', layout: false %>
+        <%= render partial: '/layouts/flash_alert_ui_set', layout: false, locale: { notice: notice, alert: alert } %>
+        <div class="container">
+            <%= yield %>
+        </div>
     </body>
 </html>
