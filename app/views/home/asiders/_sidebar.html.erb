@@ -2,11 +2,11 @@
     <div class="profile-menu">
         <a href="">
             <div class="profile-pic">
-                <img src="/external/jquery/img/profile-pics/1.jpg" alt="">
+                <%= image_tag current_user.image if current_user.image %>
             </div>
 
             <div class="profile-info">
-                Malinda Hollaway
+                <%= current_user.name %>
 
                 <i class="zmdi zmdi-caret-down"></i>
             </div>
@@ -73,7 +73,7 @@
                 <li><a href="animations.html">Animations</a></li>
                 <li><a href="box-shadow.html">Box Shadow</a></li>
                 <li><a href="buttons.html">Buttons</a></li>
-                <li><a class="active" href="icons.html">Icons</a></li>
+                <li><a class="active" href="/external/jquery/icons.html">Icons</a></li>
                 <li><a href="alerts.html">Alerts</a></li>
                 <li><a href="preloaders.html">Preloaders</a></li>
                 <li><a href="notification-dialog.html">Notifications & Dialogs</a></li>
