@@ -7,8 +7,8 @@ class User < ApplicationRecord
 
     def self.find_for_facebook_oauth(auth)
         
-        user = where(provider: auth.provider, uid: auth.uid).first
-        unless user
+        @user_ = where(provider: auth.provider, uid: auth.uid).first
+        unless @user_
             user = User.create(
                     provider: auth.provider,
                     uid: auth.uid,
