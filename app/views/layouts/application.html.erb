@@ -1,23 +1,85 @@
 <!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
 <html>
     <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <title>Herefan</title>
         <%= csrf_meta_tags %>
 
-        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+        <%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+        <%#= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-        <!-- Bootstrap CDN v3.3.2 -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <!-- Vendor CSS -->
+        <link href="/external/jquery/vendors/bower_components/animate.css/animate.min.css" rel="stylesheet">
+        <link href="/external/jquery/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.css" rel="stylesheet">
+        <link href="/external/jquery/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
+        <link href="/external/jquery/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet">
 
+        <!-- CSS -->
+        <link href="/external/jquery/css/app.min.1.css" rel="stylesheet">
+        <link href="/external/jquery/css/app.min.2.css" rel="stylesheet">
+
+        <!-- Following CSS codes are used only fore demo purposes thus you can remove anytime -->
+        <style type="text/css">
+            .card-body .zmdi {
+                font-size: 23px;
+                vertical-align: middle;
+                color: #333;
+                margin-right: 10px;
+            }
+
+            .card-body .col-sm-4 {
+                padding: 0 7px;
+            }
+
+            .card-body .col-sm-4 p {
+                padding: 8px;
+                border-radius: 2px;
+                margin-bottom: 0;
+            }
+
+            .card-body .col-sm-4 p:hover {
+                background: #eee;
+            }
+        </style>
     </head>
     <body>
-        <%= render partial: '/layouts/navbar', layout: false %>
-        <%= render partial: '/layouts/flash_alert_ui_set', layout: false, locale: { notice: notice, alert: alert } %>
-        <div class="container">
-            <%= yield %>
-        </div>
+        <%#= render partial: '/layouts/navbar', layout: false %>
+        <%#= render partial: '/layouts/flash_alert_ui_set', layout: false, locale: { notice: notice, alert: alert } %>
+        <%= render partial: '/layouts/header', layout: false %>
+
+        <section id="main">
+            <!-- left / sidebar -->
+            <%= render partial: '/home/asiders/sidebar', layout: false %>
+
+            <!--right / chat-->
+            <%= render partial: '/home/asiders/chat', layout: false %>
+
+            <section id="content">
+                <%= yield %>
+            </section>
+        </section>
+
+        <!-- Default Footer -->
+        <%= render partial: '/layouts/footer', layout: false %>
+
+        <!-- Default Page Loader -->
+        <%= render partial: '/layouts/components/page_loader', layout: false %>
+
+        <!-- Older IE warning message -->
+        <%= render partial: '/layouts/ies/warning_msg', layout: false %>
+
+        <!-- Javascript Libraries -->
+        <%= render partial: '/home/lib/index', layout: false %>
+
+        <!-- Placeholder for IE9 -->
+        <%= render partial: '/layouts/ies/placeholder', layout: false %>
+
+        <script src="/external/jquery/js/functions.js"></script>
+        <script src="/external/jquery/js/demo.js"></script>
+
     </body>
 </html>
