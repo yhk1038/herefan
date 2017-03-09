@@ -5,7 +5,8 @@ Rails.application.routes.draw do
     
     # Devise routers
     devise_for :users, controllers: {
-        sessions: 'users/sessions'
+        sessions: 'users/sessions',
+        omniauth_callbacks: 'users/omniauth_callbacks'
     }
     
     # add your routers here. (between 'devise routes' and 'root path')
