@@ -11,7 +11,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         # You need to implement the method below in your model (e.g. app/models/user.rb)
         
         puts "\n\n\n\n\n\n\n\n\n"
-        puts request.env["omniauth.auth"].info.image
+        puts request.env["omniauth.auth"]
         puts "\n\n\n\n\n\n\n\n\n"
         
         @user = User.find_for_facebook_oauth(request.env["omniauth.auth"])
