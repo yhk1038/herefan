@@ -9,8 +9,9 @@
         <title>Herefan</title>
         <%= csrf_meta_tags %>
 
-        <%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-        <%#= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+        <link rel="shortcut icon" href="/favicon.ico">
+        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
         <!-- Vendor CSS -->
         <link href="/external/jquery/vendors/bower_components/animate.css/animate.min.css" rel="stylesheet">
@@ -53,7 +54,9 @@
 
         <section id="main">
             <!-- left / sidebar -->
-            <%= render partial: '/home/asiders/sidebar', layout: false %>
+            <% if user_signed_in? %>
+                <%= render partial: '/home/asiders/sidebar', layout: false %>
+            <% end %>
 
             <!--right / chat-->
             <%= render partial: '/home/asiders/chat', layout: false %>
