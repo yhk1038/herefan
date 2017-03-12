@@ -21,6 +21,9 @@
         padding: 10px 20px;
         margin-bottom: 12px;
     }
+    .channel_wrapper > a:hover {
+
+    }
 
     span.zmdi-facebook {
         font-size: 20px;
@@ -76,13 +79,13 @@
             </div>
             <div class="modal-body">
                 <div class="channel_wrapper">
-                    <a class="btn btn-primary" href=""><span class="zmdi zmdi-facebook"></span> login with facebook</a>
+                    <a class="btn btn-primary" href="/"><span class="zmdi zmdi-facebook"></span> login with facebook</a>
                 </div>
                 <div class="channel_wrapper">
-                    <a class="btn btn-default" href=""><span class="zmdi zmdi-twitter"></span> login with twitter</a>
+                    <a class="btn btn-default" href="/"><span class="zmdi zmdi-twitter"></span> login with twitter</a>
                 </div>
                 <div class="channel_wrapper">
-                    <a class="btn btn-default" href=""><span class="zmdi zmdi-google-plus"></span> login with google+</a>
+                    <a class="btn btn-default" href="/"><span class="zmdi zmdi-google-plus"></span> login with google+</a>
                 </div>
 
                 <div class="divider_wrapper">
@@ -94,7 +97,7 @@
                     <div class="input-group" style="width: 100%; margin-top: 12px;">
                         <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
                         <div class="fg-line">
-                            <input type="text" class="form-control" name="user[name]" placeholder="Email or Id" autocomplete="off" style="font-size: 14px; padding-left: 5px">
+                            <input type="text" class="form-control" name="user[name]" placeholder="Email or ID" autocomplete="off" style="font-size: 14px; padding-left: 5px">
                         </div>
                     </div>
                     <div class="input-group" style="width: 100%; margin-top: 12px;">
@@ -113,8 +116,8 @@
                     <button type="submit" class="btn bgm-blue wave-effect btn_submit">log in</button>
                 </form>
             </div>
-            <div class="modal-footer" style="font-size: 15px; font-weight: bold; padding-top: 6px; text-align: center;">
-                아직 계정이 없으신가요? <%= link_to 'join us!', new_user_registration_path, style: 'text-transform: capitalize; text-decoration: underline' %>
+            <div class="modal-footer" style="font-size: 15px; font-weight: bold; padding-top: 6px; text-align: center; text-transform: capitalize">
+                haven't signed yet? <%= link_to 'join us!', new_user_registration_path, style: 'text-transform: capitalize; text-decoration: underline' %>
             </div>
         </div>
     </div>
