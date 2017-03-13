@@ -1,29 +1,34 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
+    repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+    "https://github.com/#{repo_name}.git"
 end
 
 # plugin group for coding
-gem 'awesome_print'
-gem 'faker'
+gem 'awesome_print'         # 콘솔에서 자료구조를 위상에 따라 전개
+gem 'faker'                 # 더미 텍스트 생성
+gem 'seed_dump'             # 현재 레코드를 시드 파일로 백업
 
 # 회원인증 및 권한설정을 위한 젬
 gem 'devise'                # 회원가입 및 인증
+gem 'omniauth'              # 디바이스 소셜 계정 인증
 gem 'omniauth-facebook'     # 페이스북 인증
 gem 'omniauth-twitter'      # 트위터 인증
 
-gem 'rolify'     # role 관리
-gem 'authority'  # 권한설정
-gem 'cancancan'  # 더 편한 방식의 권한설정
+gem 'rolify'                # role 관리
+gem 'authority'             # 권한설정
+gem 'cancancan'             # 더 편한 방식의 권한설정
+
+# 개발 환경에서 가상동작이 필요한 기능을 위한 젬
+gem 'letter_opener', group: :development # 개발 시, 실제로 이메일을 발송하는 대신 브라우저에서 이메일을 볼 수 있도록 해 준다.
 
 # 페이지 뷰를 깔끔하게 보이도록 하기 위해서 아래의 두 젬을 추가로 설치한다.
 # gem 'bootstrap-sass'
 # gem 'simple_form'
 
-# 개발 모드에서 이메일을 보내지 않고 브라우저에서 미리보기하는 젬
-gem 'letter_opener', group: :development
+
+# ==============================================================================
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.2'
@@ -56,17 +61,17 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
+    # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+    gem 'byebug', platform: :mri
 end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '~> 3.0.5'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+    # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+    gem 'web-console', '>= 3.3.0'
+    gem 'listen', '~> 3.0.5'
+    # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+    gem 'spring'
+    gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
