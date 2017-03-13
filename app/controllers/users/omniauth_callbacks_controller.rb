@@ -4,17 +4,36 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     
     # You should also create an action method in this controller like this:
     def twitter
-        
-    end
     
-    def facebook
-        # You need to implement the method below in your model (e.g. app/models/user.rb)
-        
         puts "\n\n\n\n\n\n\n\n\n"
         puts request.env["omniauth.auth"]
         puts "\n\n\n\n\n\n\n\n\n"
-        
-        @user = User.find_for_facebook_oauth(request.env["omniauth.auth"])
+
+        user = nil
+        user = current_user if current_user
+        @user = User.find_for_oauth(request.env["omniauth.auth"], 'twitter', user)
+    
+        puts @user
+        puts "\n\n\n\n\n\n\n\n\n"
+    
+        if @user.persisted?
+            sign_in_and_redirect @user, :event => :authentication       #this will throw if @user is not activated
+            set_flash_message(:notice, :success, :kind => "Twitter") if is_navigational_format?
+        else
+            session["devise.twitter_data"] = request.env["omniauth.auth"]
+            redirect_to new_user_registration_url
+        end
+    end
+    
+    def facebook
+    
+        puts "\n\n\n\n\n\n\n\n\n"
+        puts request.env["omniauth.auth"]
+        puts "\n\n\n\n\n\n\n\n\n"
+
+        user = nil
+        user = current_user if current_user
+        @user = User.find_for_oauth(request.env["omniauth.auth"], 'facebook', user)
 
         puts @user
         puts "\n\n\n\n\n\n\n\n\n"

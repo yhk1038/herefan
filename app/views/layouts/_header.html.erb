@@ -236,7 +236,7 @@
                                 <div class="lv-body">
 
                                     <!--Join with Twitter Button-->
-                                    <a class="lv-item" href="" methods="post" style="padding: 10px 70px 10px 70px; cursor: pointer;">
+                                    <a class="lv-item" href="<%= user_twitter_omniauth_authorize_path %>" methods="post" style="padding: 10px 70px 10px 70px; cursor: pointer;">
                                         <div class="media">
                                             <div class="pull-left">
                                                 <i class="zmdi zmdi-twitter" style="font-size: 25px"></i>
@@ -248,7 +248,7 @@
                                     </a>
 
                                     <!--Join with Facebook Button-->
-                                    <a class="lv-item" href="/users/auth/facebook" methods="post" style="padding: 10px 40px 10px 70px; cursor: pointer;">
+                                    <a class="lv-item" href="<%= user_facebook_omniauth_authorize_path %>" methods="post" style="padding: 10px 40px 10px 70px; cursor: pointer;">
                                         <div class="media">
                                             <div class="pull-left">
                                                 <i class="zmdi zmdi-facebook" style="font-size: 25px"></i>

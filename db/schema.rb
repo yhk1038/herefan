@@ -17,8 +17,12 @@ ActiveRecord::Schema.define(version: 20170308020522) do
     t.string   "image",                  default: "/default-user-image.png", null: false
     t.string   "email",                  default: "",                        null: false
     t.string   "encrypted_password",     default: "",                        null: false
-    t.string   "provider"
-    t.string   "uid"
+    t.string   "provider_fb"
+    t.string   "uid_fb"
+    t.string   "provider_tw"
+    t.string   "uid_tw"
+    t.string   "provider_gg"
+    t.string   "uid_gg"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

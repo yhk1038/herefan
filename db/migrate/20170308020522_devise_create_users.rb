@@ -8,8 +8,12 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
             t.string :encrypted_password, null: false, default: ""
             
             ## Omniauth authenticatable
-            t.string :provider
-            t.string :uid
+            t.string :provider_fb
+            t.string :uid_fb
+            t.string :provider_tw
+            t.string :uid_tw
+            t.string :provider_gg
+            t.string :uid_gg
             
             ## Recoverable
             t.string   :reset_password_token
