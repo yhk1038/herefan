@@ -11,10 +11,11 @@ gem 'faker'                 # 더미 텍스트 생성
 gem 'seed_dump'             # 현재 레코드를 시드 파일로 백업
 
 # 회원인증 및 권한설정을 위한 젬
-gem 'devise'                # 회원가입 및 인증
-gem 'omniauth'              # 디바이스 소셜 계정 인증
-gem 'omniauth-facebook'     # 페이스북 인증
-gem 'omniauth-twitter'      # 트위터 인증
+gem 'devise'                    # 회원가입 및 인증
+gem 'omniauth'                  # 디바이스 소셜 계정 인증
+gem 'omniauth-facebook'         # 페이스북 인증
+gem 'omniauth-twitter'          # 트위터 인증
+gem 'omniauth-google-oauth2'    # 구글 인증
 
 gem 'rolify'                # role 관리
 gem 'authority'             # 권한설정
