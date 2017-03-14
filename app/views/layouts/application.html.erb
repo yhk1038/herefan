@@ -2,20 +2,12 @@
 <html>
     <head>
         <title>Herefan</title>
-        <%= csrf_meta_tags %>
-
-        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
-        <!-- Bootstrap CDN v3.3.2 -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
+<%= csrf_meta_tags %>
+<%= stylesheet_link_tag    'application', media: 'all' %>
+<%= javascript_include_tag 'application' %>
     </head>
     <body>
-        <%= render partial: '/layouts/navbar', layout: false %>
-        <%= render partial: '/layouts/flash_alert_ui_set', layout: false, locale: { notice: notice, alert: alert } %>
+<%= render partial: "/layouts/parts/navbar"%>
         <div class="container">
             <%= yield %>
         </div>
