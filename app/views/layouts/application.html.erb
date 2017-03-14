@@ -8,8 +8,14 @@
     </head>
     <body>
 <%= render partial: "/layouts/parts/navbar"%>
-        <div class="container">
+		<section id="main" data-layout="layer-1">
             <%= yield %>
-        </div>
+		</section>
     </body>
 </html>
+
+<!-- site frame -->
+<style>
+    [data-current-skin="jeaeun_green"]{background-color: #70C7BE}
+    #main{padding-top: 80px;}
+</style>
