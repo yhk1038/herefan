@@ -4,7 +4,7 @@ class User < ApplicationRecord
     devise  :authentication_keys => [:uniq_key]
     devise  :database_authenticatable, :registerable,
             :recoverable, :rememberable, :trackable, :validatable,
-            :omniauthable, :omniauth_providers => [:facebook, :twitter]
+            :omniauthable, :omniauth_providers => [:facebook, :twitter, :google_oauth2]
     
     def has_mail?
         self.mail.length.zero? ? true : false
@@ -137,8 +137,15 @@ class User < ApplicationRecord
         user.provider_gg    = auth.provider
         user.uid_gg         = auth.uid
 
+        user.name           = auth.info.name
+        user.mail           = auth.info.email
+        user.password       = Devise.friendly_token[0,20]
+
+        user.image_gg       = auth.info.image
         user.image          = auth.info.image if user.image.nil? || user.image == '/default-user-image.png' && auth.info.image != nil
     
+        user.email          = randomic_email_format
+        
         return user
     end
     

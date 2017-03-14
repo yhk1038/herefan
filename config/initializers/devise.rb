@@ -1,3 +1,5 @@
+require "omniauth-google-oauth2"
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -251,7 +253,6 @@ Devise.setup do |config|
     config.omniauth :facebook,      ENV["FB_APP_ID"].to_i,      ENV["FB_APP_SECRET"]        # 383259152047390, '3972c80d6ec381cd313c4d7431cc7947'
     config.omniauth :twitter,       ENV["TW_API_KEY"],          ENV["TW_API_SECRET"]
     config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"],    ENV["GOOGLE_CLIENT_SECRET"]
-    # config.omniauth :google,    '', ''
     
     # ==> Warden configuration
     # If you want to use other strategies, that are not supported by Devise, or
