@@ -4,46 +4,45 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     
     # You should also create an action method in this controller like this:
     def twitter
-    
-        puts "\n\n\n\n\n\n\n\n\n"
-        puts request.env["omniauth.auth"]
-        puts "\n\n\n\n\n\n\n\n\n"
-
+        need_field = %w(mail)
+        puts request.env['omniauth.auth']
+        
         user = nil
         user = current_user if current_user
         @user = User.find_for_oauth(request.env["omniauth.auth"], 'twitter', user)
-    
-        puts @user
-        puts "\n\n\n\n\n\n\n\n\n"
-    
-        if @user.persisted?
-            sign_in_and_redirect @user, :event => :authentication       #this will throw if @user is not activated
-            set_flash_message(:notice, :success, :kind => "Twitter") if is_navigational_format?
+        
+        if @user.has_mail?
+            session["devise.twitter_data"] = request.env["omniauth.auth"].info
+            redirect_to new_user_registration_path, flash: { user: @user, need_field: need_field }
         else
-            session["devise.twitter_data"] = request.env["omniauth.auth"]
-            redirect_to new_user_registration_url
+            if @user.persisted?
+                sign_in_and_redirect @user, :event => :authentication       #this will throw if @user is not activated
+                set_flash_message(:notice, :success, :kind => "Twitter") if is_navigational_format?
+            else
+                session["devise.twitter_data"] = request.env["omniauth.auth"].info
+                redirect_to new_user_registration_path, flash: { user: @user, need_field: need_field }
+            end
         end
+        
+        
     end
     
     def facebook
-    
-        puts "\n\n\n\n\n\n\n\n\n"
         puts request.env["omniauth.auth"]
-        puts "\n\n\n\n\n\n\n\n\n"
-
+        
         user = nil
         user = current_user if current_user
         @user = User.find_for_oauth(request.env["omniauth.auth"], 'facebook', user)
 
         puts @user
-        puts "\n\n\n\n\n\n\n\n\n"
+        puts "\n==> end \n\n\n\n\n\n\n\n"
         
         if @user.persisted?
             sign_in_and_redirect @user, :event => :authentication       #this will throw if @user is not activated
             set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
         else
             session["devise.facebook_data"] = request.env["omniauth.auth"]
-            redirect_to new_user_registration_url
+            redirect_to new_user_registration_url, flash: { user: @user, need_field: []}
         end
     end
     

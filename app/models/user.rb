@@ -1,10 +1,15 @@
 class User < ApplicationRecord
     # Include default devise modules. Others available are:
     # :confirmable, :lockable, :timeoutable and :omniauthable
+    devise  :authentication_keys => [:uniq_key]
     devise  :database_authenticatable, :registerable,
             :recoverable, :rememberable, :trackable, :validatable,
             :omniauthable, :omniauth_providers => [:facebook, :twitter]
-
+    
+    def has_mail?
+        self.mail.length.zero? ? true : false
+    end
+    
     def socials
         socials = {}
         
@@ -20,17 +25,17 @@ class User < ApplicationRecord
             
         when 'facebook'
             # return {:provider => self.provider, :uid => self.uid} if self.provider && self.uid
-            return {:provider => self.provider_fb, :uid => self.uid_fb} if self.provider_fb && self.uid_fb
+            return {provider: self.provider_fb, uid: self.uid_fb, img: self.image_fb, url: self.url_fb} if self.provider_fb && self.uid_fb
             return false
             
         when 'twitter'
             # return {:provider => self.provider, :uid => self.uid} if self.provider && self.uid
-            return {:provider => self.provider_tw, :uid => self.uid_tw} if self.provider_tw && self.uid_tw
+            return {provider: self.provider_tw, uid: self.uid_tw, img: self.image_tw, url: self.url_tw} if self.provider_tw && self.uid_tw
             return false
             
         when 'google'
             # return {:provider => self.provider, :uid => self.uid} if self.provider && self.uid
-            return {:provider => self.provider_gg, :uid => self.uid_gg} if self.provider_gg && self.uid_gg
+            return {provider: self.provider_gg, uid: self.uid_gg, img: self.image_gg, url: self.url_gg} if self.provider_gg && self.uid_gg
             return false
             
         else
@@ -62,11 +67,14 @@ class User < ApplicationRecord
         case provider
         when 'facebook'
             @user_ = User.where(provider_fb: auth.provider, uid_fb: auth.uid).first
+            puts
+            puts @user_.to_json
+            puts
             user.fill_facebook_info(auth, user).save   unless @user_
             
         when 'twitter'
             @user_ = User.where(provider_tw: auth.provider, uid_tw: auth.uid).first
-            user.fill_twitter_info(auth, user).save    unless @user_
+            user.fill_twitter_info(auth, user)    unless @user_
             
         when 'google'
             @user_ = User.where(provider_gg: auth.provider, uid_gg: auth.uid).first
@@ -74,7 +82,9 @@ class User < ApplicationRecord
             
         end
         
-        user   # 최종 반환값은 user 객체이어야 한다.
+        
+        return user unless @user_   # 최종 반환값은 user 객체이어야 한다.
+        return @user_
     end
 
     # public?
@@ -92,10 +102,13 @@ class User < ApplicationRecord
         user.uid_fb         = auth.uid
         
         user.name           = auth.info.name
-        user.email          = auth.info.email
+        user.mail           = auth.info.email
         user.password       = Devise.friendly_token[0,20]
         
-        user.image          = auth.info.image
+        user.image_fb       = auth.info.image
+        user.image          = auth.info.image if user.image.nil? || user.image == '/default-user-image.png' && auth.info.image != nil
+        
+        user.email          = randomic_email_format
         
         return user
     end
@@ -104,7 +117,18 @@ class User < ApplicationRecord
     
         user.provider_tw    = auth.provider
         user.uid_tw         = auth.uid
+
+        user.name           = auth.info.name
+        user.mail           = ''
+        user.password       = Devise.friendly_token[0,20]
+
+        user.image_tw       = auth.info.image
+        user.image          = auth.info.image if user.image.nil? || user.image == '/default-user-image.png' && auth.info.image != nil
         
+        user.url_tw         = TWITTER_DOMAIN + auth.info.nickname
+
+        user.email          = randomic_email_format
+                
         return user
     end
     
@@ -112,7 +136,17 @@ class User < ApplicationRecord
     
         user.provider_gg    = auth.provider
         user.uid_gg         = auth.uid
+
+        user.image          = auth.info.image if user.image.nil? || user.image == '/default-user-image.png' && auth.info.image != nil
     
         return user
+    end
+    
+    def randomic(big_count: 20, count: 5)
+        (('a'..'z').to_a + ('A'..'Z').to_a + (1..20).to_a.map{|i| i.to_s}).sample(big_count).sample(count).join
+    end
+    
+    def randomic_email_format
+        "#{randomic(count: 8)}@#{randomic}.#{randomic(count: 3)}"
     end
 end
