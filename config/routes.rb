@@ -15,4 +15,5 @@ Rails.application.routes.draw do
     # add your routers here. (between 'devise routes' and 'root path')
     
     root 'home#index'
+    get '/util/merge', to: "home#merge", as: 'merge'
 end

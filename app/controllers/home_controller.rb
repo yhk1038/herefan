@@ -28,4 +28,9 @@ class HomeController < ApplicationController
         @carousel << dummy
         
     end
+    
+    def merge
+        current_user.merge
+        redirect_to :back
+    end
 end

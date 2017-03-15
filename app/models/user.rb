@@ -95,6 +95,42 @@ class User < ApplicationRecord
             end
         end
     end
+    
+    def merge
+        #
+        # set local variable
+        me = self
+        
+        my_mail     = me.mail
+        my_id       = me.id
+        my_socials  = me.socials
+        
+        same_mail_users = User.where(mail: my_mail).where.not(id: my_id)
+
+        #
+        # calculate fields that i want to get with merging
+        whole_socials = {}
+        whole_socials[:facebook]         = %w(provider_fb uid_fb image_fb url_fb)
+        whole_socials[:twitter]          = %w(provider_tw uid_tw image_tw url_tw)
+        whole_socials[:google_oauth2]    = %w(provider_gg uid_gg image_gg url_gg)
+        
+        merge_socials = {}
+        merge_socials_keys = whole_socials.keys - my_socials.keys
+        merge_socials_keys.each { |key_name| merge_socials[key_name] = whole_socials[key_name] }
+        
+        #
+        # merge execution
+        same_mail_users.each do |another_me|                            # 1. '또 다른 나'들을 각각 돌면서
+            merge_socials.each do |provider, record_fields|             # 2. '또 다른 나'가 '갖고 있는 필드'를 확인해
+                next unless another_me.socials.keys.include? provider       # 3. '갖지 않은 필드'는 버린 뒤
+                record_fields.each do |field|                           # 4.  남겨진 '갖고 있는 필드'들을 각각 돌면서
+                    eval("me.#{field} = another_me.#{field}")           # 5. '나의 필드'에 '갖고 있는 필드'의 값을 집어넣어
+                end
+            end
+            another_me.delete
+        end
+        me.save                                                         # 6. 저장한다
+    end
 
     def fill_facebook_info(auth, user)
         
