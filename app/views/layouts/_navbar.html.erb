@@ -1,25 +1,99 @@
-<ul class="nav navbar-nav navbar-right">
-    <% if user_signed_in? %>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <%= image_tag(current_user.image, size: '20x20', style:'border-radius:3px;vertical-align:top;') if current_user.image %>
-                <%= current_user.name %>
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-                <li><%= link_to 'My Profile', edit_user_registration_path %></li>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="#">HereFan</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <!--일반적으로 사용되는 li 태그의 구조는 다음과 같습니다, -->
+                <li>
+                    <a href="#">Link</a>
+                </li>
+
+                <!--
+                활성 상태를 표현하고 싶으면, li 태그 내에 class "active" 를 추가하세요.
+                <li class="active">
+                    <a href="#">Link <span class="sr-only">(current)</span></a>
+                </li>
+                -->
+
+                <!--
+                네비게이션 바 내부의 새로운 드롭다운을 만들고자 할 때 예제 코드는 다음과 같습니다.
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+                -->
+
             </ul>
-        </li>
-        <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' } %></li>
-    <% else %>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign in
-                <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-                <li><%= link_to 'with Auth Blog', new_user_session_path %></li>
-                <li><%= link_to 'with Facebook', user_facebook_omniauth_authorize_path %></li>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Link</a></li>
+
+                <% if user_signed_in? %>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <%= image_tag(current_user.image, size: '20x20', style:'border-radius:3px;vertical-align:top;') if current_user.image %>
+                            <%= current_user.name %>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><%= link_to 'My Profile', edit_user_registration_path %></li>
+                        </ul>
+                    </li>
+                    <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+                <% else %>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Sign in <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><%= link_to 'with Auth Blog', new_user_session_path %></li>
+                            <li><%= link_to 'with Facebook', user_facebook_omniauth_authorize_path %></li>
+                        </ul>
+                    </li>
+                    <li><%= link_to "Sign up", new_user_registration_path %></li>
+                <% end %>
             </ul>
-        </li>
-        <li><%= link_to "Sign up", new_user_registration_path %></li>
-    <% end %>
-</ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,29 +1,40 @@
 <h2>Sign up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+    <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+    <% if @auth %><!-- hidden field section for uncompleted user from Omniauth(twitter, google) -->
+        <% @hashed_user.each do |key, attr| %>
+            <%= f.hidden_field key.to_sym, value: attr %>
+        <% end %>
+        <% unless @hashed_user.include? 'password' %>
+            <%= f.hidden_field :password, value: Devise.friendly_token[0, 20] %>
+        <% end %>
+    <% end %>
+    <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :mail, autofocus: true %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
+    <% unless flash[:user] %>
+        <div class="field">
+            <%= f.label :password %>
+            <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %><br />
+            <%= f.password_field :password, autocomplete: "off" %>
+        </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
+        <div class="field">
+            <%= f.label :password_confirmation %><br />
+            <%= f.password_field :password_confirmation, autocomplete: "off" %>
+        </div>
+    <% end %>
+
+    <div class="actions">
+        <%= f.submit "Sign up" %>
+    </div>
 <% end %>
 
 <%= render "users/shared/links" %>
