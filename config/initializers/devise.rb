@@ -1,3 +1,5 @@
+require "omniauth-google-oauth2"
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -46,12 +48,12 @@ Devise.setup do |config|
     # Configure which authentication keys should be case-insensitive.
     # These keys will be downcased upon creating or modifying a user and when used
     # to authenticate or find a user. Default is :email.
-    config.case_insensitive_keys = [:email]
+    # config.case_insensitive_keys = [:email]
     
     # Configure which authentication keys should have whitespace stripped.
     # These keys will have whitespace before and after removed upon creating or
     # modifying a user and when used to authenticate or find a user. Default is :email.
-    config.strip_whitespace_keys = [:email]
+    # config.strip_whitespace_keys = [:email]
     
     # Tell if authentication through request.params is enabled. True by default.
     # It can be set to an array that will enable params authentication only for the
@@ -242,13 +244,15 @@ Devise.setup do |config|
     # config.navigational_formats = ['*/*', :html]
     
     # The default HTTP method used to sign out a resource. Default is :delete.
-    config.sign_out_via = :delete
+    config.sign_out_via = :get
     
     # ==> OmniAuth
     # Add a new OmniAuth provider. Check the wiki for more information on setting
     # up on your models and hooks.
     # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-    config.omniauth :facebook, 163701697479023, '550acfdfe703a5bc8fc02cfe1865e8bd' # ENV["FB_APP_ID"], ENV["FB_APP_SECRET"]
+    config.omniauth :facebook,      ENV["FB_APP_ID"].to_i,      ENV["FB_APP_SECRET"]        # 383259152047390, '3972c80d6ec381cd313c4d7431cc7947'
+    config.omniauth :twitter,       ENV["TW_API_KEY"],          ENV["TW_API_SECRET"]
+    config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"],    ENV["GOOGLE_CLIENT_SECRET"]
     
     # ==> Warden configuration
     # If you want to use other strategies, that are not supported by Devise, or

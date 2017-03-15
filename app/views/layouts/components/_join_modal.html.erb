@@ -1,0 +1,124 @@
+<style>
+    @media (min-width: 768px) {
+        .modal-sm {
+            width: 330px;
+        }
+    }
+
+    .modal-title {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .channel_wrapper, .channel_wrapper > a {
+        width: 100%;
+    }
+    .channel_wrapper > a {
+        text-transform: capitalize;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: left;
+        padding: 10px 20px;
+        margin-bottom: 12px;
+    }
+    .channel_wrapper > a:hover {
+
+    }
+
+    span.zmdi-facebook {
+        font-size: 20px;
+        margin-right: 15px;
+    }
+    span.zmdi-twitter {
+        font-size: 19px;
+        margin-right: 10px;
+        margin-left: -2px;
+        color: #5fa9dd;
+    }
+    span.zmdi-google-plus {
+        font-size: 17px;
+        margin-right: 10px;
+        margin-left: -1px;
+        color: #dd4b38;
+    }
+
+    .divider_wrapper {
+        text-align: center;
+        position: relative;
+    }
+    .divider_wrapper > div > .divider {
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        background-color: #c9c9c9;
+        top: 50%;
+    }
+    .divider_wrapper > span.divider-msg {
+        text-transform: uppercase;
+        font-size: 15px;
+        color: #c9c9c9;
+        background-color: #fff;
+        padding: 0 10px;
+        position: inherit;
+    }
+
+    .btn_submit {
+        width: 100%;
+        padding: 10px;
+        font-size: 15px;
+        font-weight: bold;
+        margin-top: 12px;
+    }
+</style>
+<div class="modal fade" id="joinModal" tabindex="-1" role="dialog" aria-labelledby="joinModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" style="margin-top: 125px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <p class="modal-title" id="myModalLabel">Welcome to HereFan!</p>
+            </div>
+            <div class="modal-body">
+                <div class="channel_wrapper">
+                    <a class="btn btn-primary" href="/"><span class="zmdi zmdi-facebook"></span> login with facebook</a>
+                </div>
+                <div class="channel_wrapper">
+                    <a class="btn btn-default" href="/"><span class="zmdi zmdi-twitter"></span> login with twitter</a>
+                </div>
+                <div class="channel_wrapper">
+                    <a class="btn btn-default" href="/"><span class="zmdi zmdi-google-plus"></span> login with google+</a>
+                </div>
+
+                <div class="divider_wrapper">
+                    <div style="width: 100%;"><div class="divider"></div></div>
+                    <span class="divider-msg">or</span>
+                </div>
+
+                <form action="">
+                    <div class="input-group" style="width: 100%; margin-top: 12px;">
+                        <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                        <div class="fg-line">
+                            <input type="text" class="form-control" name="user[name]" placeholder="Email or ID" autocomplete="off" style="font-size: 14px; padding-left: 5px">
+                        </div>
+                    </div>
+                    <div class="input-group" style="width: 100%; margin-top: 12px;">
+                        <span class="input-group-addon"><i class="zmdi zmdi-key"></i></span>
+                        <div class="fg-line">
+                            <input type="password" class="form-control" name="user[password]" placeholder="Password" autocomplete="off" style="font-size: 14px; padding-left: 5px">
+                        </div>
+                    </div>
+
+                    <label class="checkbox checkbox-inline m-r-20" style="text-transform: capitalize; margin: 12px 0;">
+                        <input type="checkbox" name="user[remember]" value="checked">
+                        <i class="input-helper"></i>
+                        remember me
+                    </label>
+                    <%= link_to 'find password', '#', style: 'float: right; right: 0; text-transform: capitalize; text-decoration: underline; padding: 11px 0;' %>
+                    <button type="submit" class="btn bgm-blue wave-effect btn_submit">log in</button>
+                </form>
+            </div>
+            <div class="modal-footer" style="font-size: 15px; font-weight: bold; padding-top: 6px; text-align: center; text-transform: capitalize">
+                haven't signed yet? <%= link_to 'join us!', new_user_registration_path, style: 'text-transform: capitalize; text-decoration: underline' %>
+            </div>
+        </div>
+    </div>
+</div>

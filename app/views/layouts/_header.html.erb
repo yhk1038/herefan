@@ -1,0 +1,309 @@
+<style>
+    #header {
+        background-color: rgba(33,150,243,1) !important;
+        transition: opacity 2s ease;
+    }
+    #header.no-login { padding: 0px 6% !important; }
+    #header .logo a {
+        font-weight: bold;
+        text-transform: capitalize;
+        font-size: 21px;
+        padding: 2px 10px;
+    }
+    #header.header-transparent { background-color: rgba(33,150,243,0.9) !important; }
+    .top-menu > li .dropdown-menu-lg .lv-body {
+        min-height: 55px;
+        overflow-x: hidden;
+    }
+
+    li.dropdown span.text {
+        text-transform: capitalize;
+        font-size: 16px;
+    }
+
+    .btn-sign_out{
+        position: absolute;
+        right: 6px;
+        font-size: 12px;
+        top: 23px;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        var header = $('#header');
+        if ($(document).scrollTop() <= 613 && $(document).scrollTop() >= 72) {
+            console.log($(document).scrollTop());
+            header.addClass('header-transparent')
+        } else {
+            console.log($(document).scrollTop());
+            header.addClass('header-colorize')
+        }
+
+        $(window).scroll(function () {
+            var scroll = $(document).scrollTop();
+            if (scroll <= 613 && scroll >= 72) {
+                console.log(scroll);
+                header.addClass('header-transparent'); //.addClass('header-colorize')
+            } else {
+                console.log(scroll);
+                header.removeClass('header-transparent'); // .removeClass('header-colorize')
+            }
+        })
+    })
+</script>
+<header id="header" class="clearfix <%= 'no-login' unless user_signed_in? %>" data-current-skin="blue" style="z-index: 99999;">
+    <ul class="header-inner">
+        <% if user_signed_in? %>
+        <li id="menu-trigger" data-trigger="#sidebar">
+            <div class="line-wrap">
+                <div class="line top"></div>
+                <div class="line center"></div>
+                <div class="line bottom"></div>
+            </div>
+        </li>
+        <% end %>
+
+        <li class="logo hidden-xs">
+            <a href="/">here fan</a>
+        </li>
+
+        <li class="pull-right">
+            <ul class="top-menu">
+
+                <li id="top-search">
+                    <a href=""><i class="tm-icon zmdi zmdi-search"></i></a>
+                </li>
+
+                <% if user_signed_in? %>
+
+                    <!--Toggle SideBar-->
+                    <li id="toggle-width">
+                        <div class="toggle-switch">
+                            <input id="tw-switch" type="checkbox" hidden="hidden">
+                            <label for="tw-switch" class="ts-helper"></label>
+                        </div>
+                    </li>
+
+                    <!-- Notifications -->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" href="">
+                            <i class="tm-icon zmdi zmdi-notifications"></i>
+                            <i class="tmn-counts"><%= @kind_of_notice.count * 3 %></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg pull-right">
+                            <div class="listview">
+                                <% @kind_of_notice.each do |nt| %>
+                                <div class="lv-header" style="background-color: #fbfbfb">
+                                    <%= nt %>
+                                </div>
+                                <div class="lv-body">
+                                    <% 3.times do |i| %>
+                                    <a class="lv-item" href="">
+                                        <div class="media">
+                                            <div class="pull-left">
+                                                <img class="lv-img-sm" src="/external/jquery/img/profile-pics/<%= (1..9).to_a.sample %>.jpg" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <div class="lv-title"><%= Faker::Name.name %></div>
+                                                <small class="lv-small"><%= Faker::Lorem.sentence %>></small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <% end %>
+                                </div>
+                                <!--<a class="lv-footer" href="">View All</a>-->
+                                <% end %>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- Accounts -->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" href="" style="padding: 0 5px;">
+                            <!--<i class="tm-icon zmdi zmdi-account"></i>-->
+                            <%= image_tag(current_user.image, size: '30x30', class: 'tm-icon', style:'border: 1px solid #fff; border-radius:3px; vertical-align:middle; margin:3px;') if current_user.image %>
+                            <span style="font-weight: bold;"><%= current_user.name %></span>
+                            <b class="caret"></b>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg pull-right">
+                            <div class="listview" id="notifications">
+                                <div class="lv-header" style="background-color: #fbfbfb; text-transform: capitalize;">
+                                    my account info
+                                    <%= link_to 'sign out', destroy_user_session_path, class: 'btn-sign_out', data: { confirm: 'Are you sure?' } %>
+                                </div>
+                                <div class="lv-body">
+                                    <% 3.times do |i| %>
+                                        <a class="lv-item" href="">
+                                            <div class="media">
+                                                <div class="pull-left">
+                                                    <img class="lv-img-sm" src="/external/jquery/img/profile-pics/<%= (1..9).to_a.sample %>.jpg" alt="">
+                                                </div>
+                                                <div class="media-body">
+                                                    <div class="lv-title"><%= Faker::Name.name %></div>
+                                                    <small class="lv-small"><%= Faker::Lorem.sentence %>></small>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    <% end %>
+                                </div>
+                                <a class="lv-footer" href="">View All</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" href="" style="padding: 0 5px;">
+                            <i class="tm-icon zmdi zmdi-account"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg pull-right">
+                            <div class="listview" id="notifications">
+                                <div class="lv-header" style="background-color: #fbfbfb; text-transform: capitalize;">
+                                    my fan id
+                                </div>
+                                <div class="lv-body">
+                                    <% 3.times do |i| %>
+                                        <a class="lv-item" href="">
+                                            <div class="media">
+                                                <div class="pull-left">
+                                                    <img class="lv-img-sm" src="/external/jquery/img/profile-pics/<%= (1..9).to_a.sample %>.jpg" alt="">
+                                                </div>
+                                                <div class="media-body">
+                                                    <div class="lv-title"><%= Faker::Name.name %></div>
+                                                    <small class="lv-small"><%= Faker::Lorem.sentence %>></small>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    <% end %>
+                                </div>
+                                <%= link_to 'View All', merge_path, class: 'lv-footer' %>
+                                <!--<a class="lv-footer" href="">View All</a>-->
+                            </div>
+                        </div>
+                    </li>
+
+
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" href="" aria-expanded="false">
+                            <i class="tm-icon zmdi zmdi-more-vert"></i>
+                        </a>
+                        <ul class="dropdown-menu dm-icon pull-right">
+                            <li class="skin-switch hidden-xs">
+                                <span class="ss-skin bgm-lightblue" data-skin="lightblue"></span>
+                                <span class="ss-skin bgm-bluegray" data-skin="bluegray"></span>
+                                <span class="ss-skin bgm-cyan" data-skin="cyan"></span>
+                                <span class="ss-skin bgm-teal" data-skin="teal"></span>
+                                <span class="ss-skin bgm-orange" data-skin="orange"></span>
+                                <span class="ss-skin bgm-blue" data-skin="blue"></span>
+                            </li>
+                            <li class="divider hidden-xs"></li>
+                            <li class="hidden-xs">
+                                <a data-action="fullscreen" href=""><i class="zmdi zmdi-fullscreen"></i> Toggle Fullscreen</a>
+                            </li>
+                            <li>
+                                <a data-action="clear-localstorage" href=""><i class="zmdi zmdi-delete"></i> Clear Local Storage</a>
+                            </li>
+                            <li>
+                                <a href=""><i class="zmdi zmdi-face"></i> Privacy Settings</a>
+                            </li>
+                            <li>
+                                <a href=""><i class="zmdi zmdi-settings"></i> Other Settings</a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li class="hidden-xs" id="chat-trigger" data-trigger="#chat">
+                        <a href=""><i class="tm-icon zmdi zmdi-comment-alt-text"></i></a>
+                    </li>
+                <% else %>
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" href="" style="padding: 7px 10px;">
+                            <span class="text">join</span>
+                            <b class="caret"></b>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg pull-right">
+                            <div class="listview" id="notifications">
+                                <div class="lv-header">
+                                    Social Accounts
+                                    <ul class="actions">
+                                        <li class="dropdown">
+                                            <a href="" data-clear="notification">
+                                                <i class="zmdi zmdi-check-all"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="lv-body">
+
+                                    <!--Join with Twitter Button-->
+                                    <a class="lv-item" href="<%= user_twitter_omniauth_authorize_path %>" methods="post" style="padding: 10px 70px 10px 70px; cursor: pointer;">
+                                        <div class="media">
+                                            <div class="pull-left">
+                                                <i class="zmdi zmdi-twitter" style="font-size: 25px"></i>
+                                            </div>
+                                            <div class="media-body" style="padding-top: 2px; text-align: center;">
+                                                <div class="lv-title">Join with Twitter</div>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <!--Join with Facebook Button-->
+                                    <a class="lv-item" href="<%= user_facebook_omniauth_authorize_path %>" methods="post" style="padding: 10px 40px 10px 70px; cursor: pointer;">
+                                        <div class="media">
+                                            <div class="pull-left">
+                                                <i class="zmdi zmdi-facebook" style="font-size: 25px"></i>
+                                            </div>
+                                            <div class="media-body" style="padding-top: 2px; text-align: center;">
+                                                <div class="lv-title">Join with Facebook</div>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <!--Join with Goggle Button-->
+                                    <a class="lv-item" href="<%= user_google_oauth2_omniauth_authorize_path %>" methods="post" style="padding: 10px 60px 10px 70px; cursor: pointer;">
+                                        <div class="media">
+                                            <div class="pull-left">
+                                                <i class="zmdi zmdi-google" style="font-size: 25px"></i>
+                                            </div>
+                                            <div class="media-body" style="padding-top: 2px; text-align: center;">
+                                                <div class="lv-title">Join with Google</div>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <!--<a class="lv-item" href="">-->
+                                        <!--<div class="media">-->
+                                            <!--<div class="pull-left">-->
+                                                <!--<img class="lv-img-sm" src="/external/jquery/img/profile-pics/2.jpg" alt="">-->
+                                            <!--</div>-->
+                                            <!--<div class="media-body">-->
+                                                <!--<div class="lv-title">Jonathan Morris</div>-->
+                                                <!--<small class="lv-small">Nunc quis diam diamurabitur at dolor elementum, dictum turpis vel</small>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</a>-->
+                                </div>
+
+                                <%= link_to 'Login with your Email Account', new_user_session_path, class: 'lv-footer' %>
+                                <!--<a class="lv-footer" href="">Login with your Email Account</a>-->
+                            </div>
+
+                        </div>
+                    </li>
+                <% end %>
+            </ul>
+        </li>
+    </ul>
+
+
+    <!-- Top Search Content -->
+    <div id="top-search-wrap">
+        <div class="tsw-inner">
+            <i id="top-search-close" class="zmdi zmdi-arrow-left"></i>
+            <input type="text">
+        </div>
+    </div>
+</header>
+
+<!-- Modal -->
+<%= render partial: '/layouts/components/join_modal', layout: false %>

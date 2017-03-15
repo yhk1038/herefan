@@ -6,10 +6,14 @@ Rails.application.routes.draw do
     # Devise routers
     devise_for :users, controllers: {
         sessions: 'users/sessions',
-        omniauth_callbacks: 'users/omniauth_callbacks'
+        # omniauth_callbacks: 'omniauth_callbacks'
+        omniauth_callbacks: 'users/omniauth_callbacks',
+        registrations: 'users/registrations',
+        passwords: 'users/passwords'
     }
     
     # add your routers here. (between 'devise routes' and 'root path')
     
     root 'home#index'
+    get '/util/merge', to: "home#merge", as: 'merge'
 end

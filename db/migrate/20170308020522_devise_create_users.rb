@@ -4,12 +4,25 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
             ## Database authenticatable
             t.string :name,               null: false, default: ""
             t.string :image,              null: false, default: '/default-user-image.png'
-            t.string :email,              null: false, default: ""
+            t.string :email,              null: false, default: ""      # 가짜임!!
+            t.string :mail,               null: false, default: ""      # 이게 진짜 이메일!!!
             t.string :encrypted_password, null: false, default: ""
             
             ## Omniauth authenticatable
-            t.string :provider
-            t.string :uid
+            t.string :provider_fb
+            t.string :uid_fb
+            t.string :image_fb
+            t.string :url_fb
+            
+            t.string :provider_tw
+            t.string :uid_tw
+            t.string :image_tw
+            t.string :url_tw
+            
+            t.string :provider_gg
+            t.string :uid_gg
+            t.string :image_gg
+            t.string :url_gg
             
             ## Recoverable
             t.string   :reset_password_token
